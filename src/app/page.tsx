@@ -18,7 +18,7 @@ export default function Home() {
     <div className="flex flex-col justify-center items-center mt-5">
       <div
         id="FormSpace"
-        className="bg-discord w-180 h-200 flex flex-col items-center shadow-2xl"
+        className="bg-discord w-180 h-200 flex flex-col items-center shadow-2xl rounded-md"
       >
         <h1 className="mt-5 text-4xl font-bold text-amber-50">
           Formulário TOP 2000
