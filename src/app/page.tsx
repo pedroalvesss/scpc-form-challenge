@@ -39,7 +39,7 @@ export default function Home() {
     <div className="w-full h-screen flex flex-col justify-center items-center">
       <div
         id="FormSpace"
-        className="bg-discord w-250 h-200 flex flex-col items-center shadow-2xl rounded-md"
+        className="bg-discord w-250 h-150 flex flex-col items-center shadow-2xl rounded-md"
       >
         <h1 className="mt-5 text-4xl font-bold text-amber-50">
           Formulário TOP 2000
@@ -54,7 +54,7 @@ export default function Home() {
               <div id="selectdiv" className="flex w-205 flex-wrap gap-4">
                 <FormField
                   control={form.control}
-                  name="SelectDiretoria"
+                  name="diretoria"
                   render={({ field }) => (
                     <FormItem className="w-100">
                       <FormLabel className="text-white w-full">
@@ -81,11 +81,11 @@ export default function Home() {
 
                 <FormField
                   control={form.control}
-                  name="SelectDiretoria"
+                  name="areaConhecimento"
                   render={({ field }) => (
                     <FormItem className="w-100">
                       <FormLabel className="text-white w-full">
-                        Diretoria
+                        Área do Conhecimento
                       </FormLabel>
                       <Select
                         onValueChange={field.onChange}
@@ -93,7 +93,7 @@ export default function Home() {
                       >
                         <FormControl>
                           <SelectTrigger className="text-white w-100">
-                            <SelectValue placeholder="Selecione a diretoria" />
+                            <SelectValue placeholder="Selecione a área de conhecimento" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -108,11 +108,11 @@ export default function Home() {
 
                 <FormField
                   control={form.control}
-                  name="SelectDiretoria"
+                  name="tipo"
                   render={({ field }) => (
                     <FormItem className="w-100">
                       <FormLabel className="text-white w-full">
-                        Diretoria
+                        Tipo de Evento
                       </FormLabel>
                       <Select
                         onValueChange={field.onChange}
@@ -120,7 +120,7 @@ export default function Home() {
                       >
                         <FormControl>
                           <SelectTrigger className="text-white w-100">
-                            <SelectValue placeholder="Selecione a diretoria" />
+                            <SelectValue placeholder="Selecione o tipo de evento" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -135,11 +135,11 @@ export default function Home() {
 
                 <FormField
                   control={form.control}
-                  name="SelectDiretoria"
+                  name="modalidade"
                   render={({ field }) => (
                     <FormItem className="w-100">
                       <FormLabel className="text-white w-full">
-                        Diretoria
+                        Modalidade
                       </FormLabel>
                       <Select
                         onValueChange={field.onChange}
@@ -147,7 +147,7 @@ export default function Home() {
                       >
                         <FormControl>
                           <SelectTrigger className="text-white w-100">
-                            <SelectValue placeholder="Selecione a diretoria" />
+                            <SelectValue placeholder="Selecione a modalidade" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -223,7 +223,7 @@ export default function Home() {
                 />
               </div>
 
-              <div id="dateDiv" className="flex w-205 flex-col gap-4">
+              <div id="dateDiv" className="flex w-205 gap-4">
                 <FormField
                   control={form.control}
                   name="dataInicio"
