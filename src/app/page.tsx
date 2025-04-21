@@ -23,7 +23,21 @@ export default function Home() {
     resolver: zodResolver(formSchema),
   });
 
-  const handleFormSubmit = (data) => {
+  const handleFormSubmit = (data: FormData) => {
+    const eventosSalvos = localStorage.getItem("dadosForm");
+
+    let eventosArray: any[] = [];
+
+    try {
+      const parsed = JSON.parse(eventosSalvos || "[]");
+      eventosArray = Array.isArray(parsed) ? parsed : [parsed]; // garante que seja array
+    } catch (error) {
+      eventosArray = []; // se der erro no JSON, começa com array vazio
+    }
+
+    eventosArray.push(data);
+    localStorage.setItem("dadosForm", JSON.stringify(eventosArray));
+    console.log("Dados enviados com sucesso!");
     alert(JSON.stringify(data));
   };
 
