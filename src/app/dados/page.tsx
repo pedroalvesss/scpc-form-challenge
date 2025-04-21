@@ -25,7 +25,7 @@ export default function Dados() {
 
   return (
     <div className="flex h-screen justify-center items-center px-4">
-      <div className="text-white rounded-md bg-discord p-6 shadow-md w-full max-w-7xl overflow-auto">
+      <div className="text-white rounded-md bg-discord p-6 shadow-md w-full max-w-8xl overflow-auto">
         <h1 className="text-2xl font-bold mb-4">Eventos Registrados</h1>
         <Table>
           <TableHeader className="text-white">
