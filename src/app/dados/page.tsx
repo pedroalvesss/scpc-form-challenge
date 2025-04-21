@@ -11,12 +11,12 @@ import {
 } from "@/components/ui/table";
 
 export default function Dados() {
-  const [eventos, setEventos] = useState<any[]>([]); // ← AQUI você declara "eventos"
+  const [eventos, setEventos] = useState<any[]>([]);
 
   useEffect(() => {
     const dadosSalvos = localStorage.getItem("dadosForm");
     if (dadosSalvos) {
-      setEventos(JSON.parse(dadosSalvos)); // ← e aqui você atualiza
+      setEventos(JSON.parse(dadosSalvos));
     }
   }, []);
 

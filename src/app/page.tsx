@@ -30,9 +30,10 @@ export default function Home() {
 
     try {
       const parsed = JSON.parse(eventosSalvos || "[]");
-      eventosArray = Array.isArray(parsed) ? parsed : [parsed]; // garante que seja array
+      eventosArray = Array.isArray(parsed) ? parsed : [parsed];
     } catch (error) {
-      eventosArray = []; // se der erro no JSON, começa com array vazio
+      console.error("Erro ao receber os dados, inicializando vazio...", error);
+      eventosArray = [];
     }
 
     eventosArray.push(data);
