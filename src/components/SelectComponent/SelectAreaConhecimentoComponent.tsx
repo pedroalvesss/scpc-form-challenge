@@ -13,14 +13,44 @@ import {
   SelectValue,
 } from "../ui/select";
 import { FormData } from "@/schemas/formSchema";
+import { useEffect, useState } from "react";
+import { GetAreaConhecimento } from "@/services";
 
 type SelectComponentProps = {
   control: Control<FormData>;
 };
 
+type areaConhecimento = {
+  id: number;
+  nome: string;
+};
+
 export default function SelectAreaConhecimentoComponent({
   control,
 }: SelectComponentProps) {
+  const [areaConhecimento, setAreaConhecimento] = useState<areaConhecimento[]>(
+    []
+  );
+  const [erro, setErro] = useState(false);
+
+  useEffect(() => {
+    const fetchAreaConhecimento = async () => {
+      try {
+        const data = await GetAreaConhecimento;
+        if (Array.isArray(data) && data.length > 0) {
+          setAreaConhecimento(data);
+        } else {
+          setErro(true);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar área do conhecimento:", error);
+        setErro(true);
+      }
+    };
+
+    fetchAreaConhecimento();
+  }, []);
+
   return (
     <FormField
       control={control}
@@ -37,7 +67,20 @@ export default function SelectAreaConhecimentoComponent({
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              <SelectItem value="1">Valor 1</SelectItem>
+              {erro ? (
+                <SelectItem value="erro" disabled>
+                  Nenhuma área do conhecimento encontrada
+                </SelectItem>
+              ) : (
+                areaConhecimento.map((areaConhecimento) => (
+                  <SelectItem
+                    key={areaConhecimento.id}
+                    value={String(areaConhecimento.id)}
+                  >
+                    {areaConhecimento.nome}
+                  </SelectItem>
+                ))
+              )}
             </SelectContent>
           </Select>
         </FormItem>
