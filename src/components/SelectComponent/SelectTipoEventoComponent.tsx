@@ -13,14 +13,42 @@ import {
   SelectValue,
 } from "../ui/select";
 import { FormData } from "@/schemas/formSchema";
+import { useEffect, useState } from "react";
+import { GetTipoCapacitacao } from "@/services";
 
 type SelectComponentProps = {
   control: Control<FormData>;
 };
 
+type TipoEvento = {
+  id: number;
+  nome: string;
+};
+
 export default function SelectTipoEventoComponent({
   control,
 }: SelectComponentProps) {
+  const [tipostate, setTipoState] = useState<TipoEvento[]>([]);
+  const [erro, setErro] = useState(false);
+
+  useEffect(() => {
+    const fetchTipoEvento = async () => {
+      try {
+        const data = await GetTipoCapacitacao;
+        if (Array.isArray(data) && data.length > 0) {
+          setTipoState(data);
+        } else {
+          setErro(true);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar tipo de evento:", error);
+        setErro(true);
+      }
+    };
+
+    fetchTipoEvento();
+  }, []);
+
   return (
     <FormField
       control={control}
@@ -35,7 +63,17 @@ export default function SelectTipoEventoComponent({
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              <SelectItem value="1">Valor Tipo 1</SelectItem>
+              {erro ? (
+                <SelectItem value="erro" disabled>
+                  Nenhum tipo de evento encontrado
+                </SelectItem>
+              ) : (
+                tipostate.map((tipo) => (
+                  <SelectItem key={tipo.id} value={tipo.nome}>
+                    {tipo.nome}
+                  </SelectItem>
+                ))
+              )}
             </SelectContent>
           </Select>
         </FormItem>
