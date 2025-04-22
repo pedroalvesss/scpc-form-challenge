@@ -52,7 +52,7 @@ export default function Home() {
           Formulário TOP 2000
         </h1>
 
-        <div className="flex flex-col mt-5">
+        <div className="flex flex-col mt-3">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(handleFormSubmit)}
@@ -76,15 +76,24 @@ export default function Home() {
                 <TextFieldNomeInstituicaoComponent control={form.control} />
               </div>
 
-              <div id="dateDiv" className="flex w-205 gap-4">
-                <DateInicioComponent control={form.control} />
+              <div id="dateDiv" className="flex w-205">
+                <DateInicioComponent
+                  control={form.control}
+                  errors={form.formState.errors}
+                />
 
-                <DateFimComponent control={form.control} />
+                <DateFimComponent
+                  control={form.control}
+                  errors={form.formState.errors}
+                />
 
-                <DateExpedComponent control={form.control} />
+                <DateExpedComponent
+                  control={form.control}
+                  errors={form.formState.errors}
+                />
               </div>
 
-              <div id="certDiv" className="flex w-205 flex-col">
+              <div id="certDiv" className="flex w-205 flex-col mt-5">
                 <Label className="text-white mb-2" htmlFor="picture">
                   Certificado
                 </Label>

@@ -1,4 +1,4 @@
-import { Control } from "react-hook-form";
+import { Control, FieldErrors } from "react-hook-form";
 import { FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
@@ -10,10 +10,12 @@ import { FormData } from "@/schemas/formSchema";
 
 type DateInicioComponentProps = {
   control: Control<FormData>;
+  errors: FieldErrors<FormData>;
 };
 
 export default function DateInicioComponent({
   control,
+  errors,
 }: DateInicioComponentProps) {
   return (
     <FormField
@@ -53,6 +55,13 @@ export default function DateInicioComponent({
               />
             </PopoverContent>
           </Popover>
+          <div className="fixed justify-center items-center mt-16">
+            {errors.inicioCurso && (
+              <p className="text-red-500 text-sm">
+                {errors.inicioCurso.message}
+              </p>
+            )}
+          </div>
         </FormItem>
       )}
     />

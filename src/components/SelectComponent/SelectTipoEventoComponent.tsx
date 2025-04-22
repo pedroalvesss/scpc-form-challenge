@@ -14,7 +14,7 @@ import {
 } from "../ui/select";
 import { FormData } from "@/schemas/formSchema";
 import { useEffect, useState } from "react";
-import { GetTipoCapacitacao } from "@/services";
+import { GetListsServices } from "@/services";
 
 type SelectComponentProps = {
   control: Control<FormData>;
@@ -34,7 +34,7 @@ export default function SelectTipoEventoComponent({
   useEffect(() => {
     const fetchTipoEvento = async () => {
       try {
-        const data = await GetTipoCapacitacao;
+        const data = await GetListsServices.GetTipoCapacitacao();
         if (Array.isArray(data) && data.length > 0) {
           setTipoState(data);
         } else {

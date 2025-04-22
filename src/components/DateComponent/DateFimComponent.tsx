@@ -1,4 +1,4 @@
-import { Control } from "react-hook-form";
+import { Control, FieldErrors } from "react-hook-form";
 import { FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
@@ -10,9 +10,13 @@ import { FormData } from "@/schemas/formSchema";
 
 type DateFimComponentProps = {
   control: Control<FormData>;
+  errors: FieldErrors<FormData>;
 };
 
-export default function DateFimComponent({ control }: DateFimComponentProps) {
+export default function DateFimComponent({
+  control,
+  errors,
+}: DateFimComponentProps) {
   return (
     <FormField
       control={control}
@@ -51,6 +55,13 @@ export default function DateFimComponent({ control }: DateFimComponentProps) {
               />
             </PopoverContent>
           </Popover>
+          <div className="fixed justify-center items-center mt-16">
+            {errors.finalCurso && (
+              <p className="text-red-500 text-sm">
+                {errors.finalCurso.message}
+              </p>
+            )}
+          </div>
         </FormItem>
       )}
     />

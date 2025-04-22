@@ -4,7 +4,7 @@ export const GetDiretorias = async () => {
     {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${process.env.Next_PUBLIC_API_TOKEN}`,
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
         "Content-Type": "application/json",
       },
     }

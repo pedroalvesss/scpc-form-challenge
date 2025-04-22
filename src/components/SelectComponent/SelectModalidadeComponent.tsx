@@ -14,7 +14,7 @@ import {
 } from "../ui/select";
 import { FormData } from "@/schemas/formSchema";
 import { useEffect, useState } from "react";
-import { GetModalidade } from "@/services";
+import { GetListsServices } from "@/services";
 
 type SelectComponentProps = {
   control: Control<FormData>;
@@ -34,7 +34,7 @@ export default function SelectModalidadeComponent({
   useEffect(() => {
     const fetchModalidades = async () => {
       try {
-        const data = await GetModalidade;
+        const data = await GetListsServices.GetModalidade();
         if (Array.isArray(data) && data.length > 0) {
           setModalidadeState(data);
         } else {
@@ -69,7 +69,10 @@ export default function SelectModalidadeComponent({
                 </SelectItem>
               ) : (
                 modalidadestate.map((modalidade) => (
-                  <SelectItem key={modalidade.id} value={String(modalidade.id)}>
+                  <SelectItem
+                    key={modalidade.id}
+                    value={String(modalidade.nome)}
+                  >
                     {modalidade.nome}
                   </SelectItem>
                 ))

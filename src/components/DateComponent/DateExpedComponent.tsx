@@ -1,4 +1,4 @@
-import { Control } from "react-hook-form";
+import { Control, FieldErrors } from "react-hook-form";
 import { FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
@@ -10,10 +10,12 @@ import { FormData } from "@/schemas/formSchema";
 
 type DateExpedComponentProps = {
   control: Control<FormData>;
+  errors: FieldErrors<FormData>;
 };
 
 export default function DateExpedComponent({
   control,
+  errors,
 }: DateExpedComponentProps) {
   return (
     <FormField
@@ -53,6 +55,13 @@ export default function DateExpedComponent({
               />
             </PopoverContent>
           </Popover>
+          <div className="fixed justify-center items-center mt-16">
+            {errors.dataExpedido && (
+              <p className="text-red-500 text-sm">
+                {errors.dataExpedido.message}
+              </p>
+            )}
+          </div>
         </FormItem>
       )}
     />

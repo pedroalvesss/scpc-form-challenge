@@ -1,5 +1,3 @@
-export * as GetDiretorias from "./GetDiretoriaServices";
-export * as GetCapacitacao from "./GetCapacitacaoServices";
-export * as GetAreaConhecimento from "./GetListsServices";
-export * as GetTipoCapacitacao from "./GetListsServices";
-export * as GetModalidade from "./GetListsServices";
+export * as GetDiretoriaServices from "./GetDiretoriaServices";
+export * as GetCapacitacaoServices from "./GetCapacitacaoServices";
+export * as GetListsServices from "./GetListsServices";

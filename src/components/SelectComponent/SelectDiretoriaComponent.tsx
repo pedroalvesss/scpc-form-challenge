@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { useEffect, useState } from "react";
-import { GetDiretorias } from "@/services";
+import { GetDiretoriaServices } from "@/services";
 import { FormData } from "@/schemas/formSchema";
 
 type SelectComponentProps = {
@@ -34,7 +34,7 @@ export default function SelectDiretoriaComponent({
   useEffect(() => {
     const fetchDiretorias = async () => {
       try {
-        const data = await GetDiretorias;
+        const data = await GetDiretoriaServices.GetDiretorias();
         if (Array.isArray(data) && data.length > 0) {
           setDiretorias(data);
         } else {
@@ -69,7 +69,7 @@ export default function SelectDiretoriaComponent({
                 </SelectItem>
               ) : (
                 diretorias.map((diretoria) => (
-                  <SelectItem key={diretoria.id} value={String(diretoria.id)}>
+                  <SelectItem key={diretoria.id} value={String(diretoria.nome)}>
                     {diretoria.nome}
                   </SelectItem>
                 ))

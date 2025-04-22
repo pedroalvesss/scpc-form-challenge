@@ -14,7 +14,7 @@ import {
 } from "../ui/select";
 import { FormData } from "@/schemas/formSchema";
 import { useEffect, useState } from "react";
-import { GetAreaConhecimento } from "@/services";
+import { GetListsServices } from "@/services";
 
 type SelectComponentProps = {
   control: Control<FormData>;
@@ -36,7 +36,7 @@ export default function SelectAreaConhecimentoComponent({
   useEffect(() => {
     const fetchAreaConhecimento = async () => {
       try {
-        const data = await GetAreaConhecimento;
+        const data = await GetListsServices.GetAreaConhecimento();
         if (Array.isArray(data) && data.length > 0) {
           setAreaConhecimento(data);
         } else {
@@ -75,7 +75,7 @@ export default function SelectAreaConhecimentoComponent({
                 areaConhecimento.map((areaConhecimento) => (
                   <SelectItem
                     key={areaConhecimento.id}
-                    value={String(areaConhecimento.id)}
+                    value={String(areaConhecimento.nome)}
                   >
                     {areaConhecimento.nome}
                   </SelectItem>

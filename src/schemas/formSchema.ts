@@ -16,13 +16,22 @@ export const formSchema = z
       .instanceof(File, { message: "Envie um arquivo válido" })
       .optional(),
   })
+  .refine((data) => data.inicioCurso >= new Date("2024-12-25"), {
+    path: ["inicioCurso"],
+    message: "A data de início deve ser maior que 25/12/2024",
+  })
   .refine((data) => data.finalCurso >= data.inicioCurso, {
     path: ["finalCurso"],
-    message: "A data de fim deve ser maior ou igual à data de início",
+    message: "A data de fim deve ser maior data de início",
   })
-  .refine((data) => data.dataExpedido >= data.finalCurso, {
-    path: ["dataExpedido"],
-    message: "A data de expedição deve ser maior ou igual à data de fim",
-  });
+  .refine(
+    (data) =>
+      data.dataExpedido >= data.finalCurso &&
+      data.dataExpedido >= data.inicioCurso,
+    {
+      path: ["dataExpedido"],
+      message: "A data de expedição deve ser válida",
+    }
+  );
 
 export type FormData = z.infer<typeof formSchema>;
