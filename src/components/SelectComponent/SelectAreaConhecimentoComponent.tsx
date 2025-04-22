@@ -4,7 +4,7 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import { Control } from "react-hook-form";
+import { Control, FieldErrors } from "react-hook-form";
 import {
   Select,
   SelectContent,
@@ -18,6 +18,7 @@ import { GetListsServices } from "@/services";
 
 type SelectComponentProps = {
   control: Control<FormData>;
+  errors: FieldErrors<FormData>;
 };
 
 type areaConhecimento = {
@@ -27,6 +28,7 @@ type areaConhecimento = {
 
 export default function SelectAreaConhecimentoComponent({
   control,
+  errors,
 }: SelectComponentProps) {
   const [areaConhecimento, setAreaConhecimento] = useState<areaConhecimento[]>(
     []
@@ -83,6 +85,11 @@ export default function SelectAreaConhecimentoComponent({
               )}
             </SelectContent>
           </Select>
+          {errors.areaConhecimento && (
+            <span className="text-red-500">
+              {errors.areaConhecimento.message}
+            </span>
+          )}
         </FormItem>
       )}
     />

@@ -4,7 +4,7 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import { Control } from "react-hook-form";
+import { Control, FieldErrors } from "react-hook-form";
 import {
   Select,
   SelectContent,
@@ -18,6 +18,7 @@ import { GetListsServices } from "@/services";
 
 type SelectComponentProps = {
   control: Control<FormData>;
+  errors: FieldErrors<FormData>;
 };
 
 type Modalidade = {
@@ -27,6 +28,7 @@ type Modalidade = {
 
 export default function SelectModalidadeComponent({
   control,
+  errors,
 }: SelectComponentProps) {
   const [modalidadestate, setModalidadeState] = useState<Modalidade[]>([]);
   const [erro, setErro] = useState(false);
@@ -79,6 +81,11 @@ export default function SelectModalidadeComponent({
               )}
             </SelectContent>
           </Select>
+          {errors.modalidade && (
+            <p className="text-red-500">
+              {errors.modalidade.message || "Selecione uma modalidade"}
+            </p>
+          )}
         </FormItem>
       )}
     />

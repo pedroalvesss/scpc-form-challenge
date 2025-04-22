@@ -46,7 +46,7 @@ export default function Home() {
     <div className="w-full h-screen flex flex-col justify-center items-center">
       <div
         id="FormSpace"
-        className="bg-discord w-250 h-150 flex flex-col items-center shadow-2xl rounded-md"
+        className="bg-discord w-250 h-auto flex flex-col items-center shadow-2xl rounded-md"
       >
         <h1 className="mt-5 text-4xl font-bold text-amber-50">
           Formulário TOP 2000
@@ -59,13 +59,25 @@ export default function Home() {
               className="flex w-full max-w-lg flex-col items-center gap-4"
             >
               <div id="selectdiv" className="flex w-205 flex-wrap gap-4">
-                <SelectDiretoriaComponent control={form.control} />
+                <SelectDiretoriaComponent
+                  control={form.control}
+                  errors={form.formState.errors}
+                />
 
-                <SelectAreaConhecimentoComponent control={form.control} />
+                <SelectAreaConhecimentoComponent
+                  control={form.control}
+                  errors={form.formState.errors}
+                />
 
-                <SelectTipoEventoComponent control={form.control} />
+                <SelectTipoEventoComponent
+                  control={form.control}
+                  errors={form.formState.errors}
+                />
 
-                <SelectModalidadeComponent control={form.control} />
+                <SelectModalidadeComponent
+                  control={form.control}
+                  errors={form.formState.errors}
+                />
               </div>
 
               <div id="textDiv" className="flex w-205 flex-wrap gap-4">
@@ -112,10 +124,11 @@ export default function Home() {
                   className="text-white w-100"
                 />
               </div>
-
-              <Button type="submit" className="w-full">
-                Enviar
-              </Button>
+              <div className="flex w-150 justify-center items-center h-20">
+                <Button type="submit" className="w-full">
+                  Enviar
+                </Button>
+              </div>
             </form>
           </Form>
         </div>

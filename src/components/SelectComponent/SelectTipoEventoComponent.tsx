@@ -4,7 +4,7 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import { Control } from "react-hook-form";
+import { Control, FieldErrors } from "react-hook-form";
 import {
   Select,
   SelectContent,
@@ -18,6 +18,7 @@ import { GetListsServices } from "@/services";
 
 type SelectComponentProps = {
   control: Control<FormData>;
+  errors: FieldErrors<FormData>;
 };
 
 type TipoEvento = {
@@ -27,6 +28,7 @@ type TipoEvento = {
 
 export default function SelectTipoEventoComponent({
   control,
+  errors,
 }: SelectComponentProps) {
   const [tipostate, setTipoState] = useState<TipoEvento[]>([]);
   const [erro, setErro] = useState(false);
@@ -76,6 +78,11 @@ export default function SelectTipoEventoComponent({
               )}
             </SelectContent>
           </Select>
+          {errors.tipo && (
+            <p className="text-red-500">
+              {errors.tipo.message || "Campo obrigatório"}
+            </p>
+          )}
         </FormItem>
       )}
     />

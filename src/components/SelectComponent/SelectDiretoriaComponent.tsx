@@ -4,7 +4,7 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import { Control } from "react-hook-form";
+import { Control, FieldErrors } from "react-hook-form";
 import {
   Select,
   SelectContent,
@@ -18,6 +18,7 @@ import { FormData } from "@/schemas/formSchema";
 
 type SelectComponentProps = {
   control: Control<FormData>;
+  errors: FieldErrors<FormData>;
 };
 
 type Diretoria = {
@@ -27,6 +28,7 @@ type Diretoria = {
 
 export default function SelectDiretoriaComponent({
   control,
+  errors,
 }: SelectComponentProps) {
   const [diretorias, setDiretorias] = useState<Diretoria[]>([]);
   const [erro, setErro] = useState(false);
@@ -76,6 +78,9 @@ export default function SelectDiretoriaComponent({
               )}
             </SelectContent>
           </Select>
+          {errors.diretoria && (
+            <p className="text-red-500 text-sm">{errors.diretoria.message}</p>
+          )}
         </FormItem>
       )}
     />

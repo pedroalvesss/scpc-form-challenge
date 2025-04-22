@@ -2,10 +2,18 @@ import { z } from "zod";
 
 export const formSchema = z
   .object({
-    diretoria: z.string().min(1, "Campo obrigatório").optional(),
-    areaConhecimento: z.string().min(1, "Campo obrigatório").optional(),
-    tipo: z.string().min(1, "Campo obrigatório").optional(),
-    modalidade: z.string().min(1, "Campo obrigatório").optional(),
+    diretoria: z
+      .string({ message: "Campo obrigatório" })
+      .min(1, { message: "Campo obrigatório" }),
+    areaConhecimento: z
+      .string({ message: "Campo obrigatório" })
+      .min(1, { message: "Campo obrigatório" }),
+    tipo: z
+      .string({ message: "Campo obrigatório" })
+      .min(1, { message: "Campo obrigatório" }),
+    modalidade: z
+      .string({ message: "Campo obrigatório" })
+      .min(1, { message: "Campo obrigatório" }),
     tituloEvento: z
       .string({ message: "Título do Evento não pode estar vazio" })
       .min(1, { message: "Campo obrigatório" }),
