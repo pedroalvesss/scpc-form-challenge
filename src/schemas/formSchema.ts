@@ -6,9 +6,15 @@ export const formSchema = z
     areaConhecimento: z.string().min(1, "Campo obrigatório").optional(),
     tipo: z.string().min(1, "Campo obrigatório").optional(),
     modalidade: z.string().min(1, "Campo obrigatório").optional(),
-    tituloEvento: z.string().min(1, "Campo obrigatório"),
-    cargaHorariaEstimada: z.string().min(1, "Campo obrigatório"),
-    nomeInstituicao: z.string().min(1, "Campo obrigatório"),
+    tituloEvento: z
+      .string({ message: "Título do Evento não pode estar vazio" })
+      .min(1, { message: "Campo obrigatório" }),
+    cargaHorariaEstimada: z
+      .string({ message: "Carga Horária não pode estar vazia" })
+      .min(1, { message: "Campo obrigatório" }),
+    nomeInstituicao: z
+      .string({ message: "Nome da Instituição não pode estar vazio" })
+      .min(1, { message: "Campo obrigatório" }),
     inicioCurso: z.date({ required_error: "Selecione uma data de início" }),
     finalCurso: z.date({ required_error: "Selecione uma data de fim" }),
     dataExpedido: z.date({ required_error: "Selecione a data de expedição" }),

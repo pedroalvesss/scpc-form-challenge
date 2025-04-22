@@ -1,14 +1,16 @@
 import { FormControl, FormField, FormItem, FormLabel } from "../ui/form";
-import { Control } from "react-hook-form";
+import { Control, FieldErrors } from "react-hook-form";
 import { Input } from "../ui/input";
 import { FormData } from "@/schemas/formSchema";
 
 type TextFieldComponentProps = {
   control: Control<FormData>;
+  errors: FieldErrors<FormData>;
 };
 
 export default function TextFieldNomeInstituicaoComponent({
   control,
+  errors,
 }: TextFieldComponentProps) {
   return (
     <div>
@@ -26,6 +28,11 @@ export default function TextFieldNomeInstituicaoComponent({
                 {...field}
               />
             </FormControl>
+            {errors.nomeInstituicao && (
+              <p className="text-red-500 text-sm">
+                {errors.nomeInstituicao.message}
+              </p>
+            )}
           </FormItem>
         )}
       />

@@ -69,11 +69,20 @@ export default function Home() {
               </div>
 
               <div id="textDiv" className="flex w-205 flex-wrap gap-4">
-                <TextFieldTitulodoEventoComponent control={form.control} />
+                <TextFieldTitulodoEventoComponent
+                  control={form.control}
+                  errors={form.formState.errors}
+                />
 
-                <TextFieldCargaHorariaComponent control={form.control} />
+                <TextFieldCargaHorariaComponent
+                  control={form.control}
+                  errors={form.formState.errors}
+                />
 
-                <TextFieldNomeInstituicaoComponent control={form.control} />
+                <TextFieldNomeInstituicaoComponent
+                  control={form.control}
+                  errors={form.formState.errors}
+                />
               </div>
 
               <div id="dateDiv" className="flex w-205">
