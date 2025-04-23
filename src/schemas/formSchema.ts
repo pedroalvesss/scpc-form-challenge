@@ -18,9 +18,9 @@ export const formSchema = z
       .string({ message: "Título do Evento não pode estar vazio" })
       .min(1, { message: "Campo obrigatório" }),
     cargaHorariaEstimada: z
-      .number({ required_error: "Carga Horária não pode estar vazia" })
+      .string({ required_error: "Carga Horária não pode estar vazia" })
       .min(1, { message: "Campo obrigatório" })
-      .transform((value: number) => Number(value))
+      .transform((value: string) => Number(value))
       .refine((value: number) => !isNaN(value) && value > 0, {
         message: "A carga horária deve ser um número positivo",
       }),
