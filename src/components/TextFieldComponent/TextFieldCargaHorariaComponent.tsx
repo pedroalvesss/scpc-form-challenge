@@ -23,7 +23,7 @@ export default function TextFieldCargaHorariaComponent({
             <FormControl>
               <Input
                 className="text-white"
-                type="text"
+                type="number"
                 placeholder="Digite a carga horária estimada do evento"
                 {...field}
               />
