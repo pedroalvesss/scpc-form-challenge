@@ -20,8 +20,7 @@ export const formSchema = z
     cargaHorariaEstimada: z
       .string({ required_error: "Carga Horária não pode estar vazia" })
       .min(1, { message: "Campo obrigatório" })
-      .transform((value: string) => Number(value))
-      .refine((value: number) => !isNaN(value) && value > 0, {
+      .refine((value) => !isNaN(Number(value)) && Number(value) > 0, {
         message: "A carga horária deve ser um número positivo",
       }),
     nomeInstituicao: z

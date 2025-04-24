@@ -71,7 +71,7 @@ export default function SelectDiretoriaComponent({
                 </SelectItem>
               ) : (
                 diretorias.map((diretoria) => (
-                  <SelectItem key={diretoria.id} value={String(diretoria.nome)}>
+                  <SelectItem key={diretoria.id} value={String(diretoria.id)}>
                     {diretoria.nome}
                   </SelectItem>
                 ))

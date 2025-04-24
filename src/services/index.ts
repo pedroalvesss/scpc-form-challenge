@@ -1,3 +1,3 @@
 export * as GetDiretoriaServices from "./GetDiretoriaServices";
-export * as GetCapacitacaoServices from "./GetCapacitacaoServices";
+export * as CapacitacaoServices from "./CapacitacaoServices";
 export * as GetListsServices from "./GetListsServices";

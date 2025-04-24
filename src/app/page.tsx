@@ -1,7 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { formSchema, FormData } from "@/schemas/formSchema";
+import { formSchema } from "@/schemas/formSchema";
+import type { FormData } from "@/schemas/formSchema";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -17,29 +18,56 @@ import TextFieldNomeInstituicaoComponent from "@/components/TextFieldComponent/T
 import DateInicioComponent from "@/components/DateComponent/DateInicioComponent";
 import DateFimComponent from "@/components/DateComponent/DateFimComponent";
 import DateExpedComponent from "@/components/DateComponent/DateExpedComponent";
+import { CapacitacaoServices } from "@/services";
+import { ObjectUtils } from "@/utils/objectUtils";
 
 export default function Home() {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
 
-  const handleFormSubmit = (data: FormData) => {
-    const eventosSalvos = localStorage.getItem("dadosForm");
+  const handleFormSubmit = async (data: FormData) => {
+    const eventosArray =
+      JSON.parse(localStorage.getItem("dadosForm") || "[]") ?? [];
 
-    let eventosArray: any[] = [];
+    const formattedData = ObjectUtils.objectToFormData({
+      nome: data.tituloEvento,
+      cargaHorariaEstimada: data.cargaHorariaEstimada,
+      nomeInstituicao: data.nomeInstituicao,
+      inicioCurso: data.inicioCurso,
+      finalCurso: data.finalCurso,
+      dataExpedido: data.dataExpedido,
+      certificado: data.certificado,
+      diretoriaId: {
+        id: Number(data.diretoria),
+      },
+      servidorId: 329,
+      tipo: {
+        id: Number(data.tipo),
+      },
+      modalidade: {
+        id: Number(data.modalidade),
+      },
+      areaConhecimento: {
+        id: Number(data.areaConhecimento),
+      },
+    });
+    console.log("Dados formatados:", formattedData);
 
     try {
-      const parsed = JSON.parse(eventosSalvos || "[]");
-      eventosArray = Array.isArray(parsed) ? parsed : [parsed];
+      await CapacitacaoServices.PostCapacitacao(formattedData);
+      console.log("Capacitação enviada com sucesso!");
     } catch (error) {
-      console.error("Erro ao receber os dados, inicializando vazio...", error);
-      eventosArray = [];
+      console.error("Erro ao enviar os dados:", error);
+      alert("Erro ao enviar os dados. Tente novamente mais tarde.");
+      return;
     }
 
-    eventosArray.push(data);
+    eventosArray.push(formattedData);
     localStorage.setItem("dadosForm", JSON.stringify(eventosArray));
+
     console.log("Dados enviados com sucesso!");
-    alert(JSON.stringify(data));
+    alert(JSON.stringify(formattedData));
   };
 
   return (

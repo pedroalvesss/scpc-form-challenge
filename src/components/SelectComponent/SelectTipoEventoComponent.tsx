@@ -71,7 +71,7 @@ export default function SelectTipoEventoComponent({
                 </SelectItem>
               ) : (
                 tipostate.map((tipo) => (
-                  <SelectItem key={tipo.id} value={tipo.nome}>
+                  <SelectItem key={tipo.id} value={String(tipo.id)}>
                     {tipo.nome}
                   </SelectItem>
                 ))

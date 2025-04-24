@@ -71,10 +71,7 @@ export default function SelectModalidadeComponent({
                 </SelectItem>
               ) : (
                 modalidadestate.map((modalidade) => (
-                  <SelectItem
-                    key={modalidade.id}
-                    value={String(modalidade.nome)}
-                  >
+                  <SelectItem key={modalidade.id} value={String(modalidade.id)}>
                     {modalidade.nome}
                   </SelectItem>
                 ))

@@ -77,7 +77,7 @@ export default function SelectAreaConhecimentoComponent({
                 areaConhecimento.map((areaConhecimento) => (
                   <SelectItem
                     key={areaConhecimento.id}
-                    value={String(areaConhecimento.nome)}
+                    value={String(areaConhecimento.id)}
                   >
                     {areaConhecimento.nome}
                   </SelectItem>
