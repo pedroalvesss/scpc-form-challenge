@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "@/schemas/formSchema";
 import type { FormData } from "@/schemas/formSchema";
 import { Label } from "@/components/ui/label";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -146,11 +146,23 @@ export default function Home() {
                 <Label className="text-white mb-2" htmlFor="picture">
                   Certificado
                 </Label>
-                <Input
-                  id="certificado"
-                  type="file"
-                  className="text-white w-100"
+                <Controller
+                  name="certificado"
+                  control={form.control}
+                  render={({ field }) => (
+                    <Input
+                      id="certificado"
+                      type="file"
+                      className="text-white w-100"
+                      onChange={(e) => field.onChange(e.target.files?.[0])}
+                    />
+                  )}
                 />
+                {form.formState.errors.certificado && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {form.formState.errors.certificado.message}
+                  </p>
+                )}
               </div>
               <div className="flex w-150 justify-center items-center h-20">
                 <Button type="submit" className="w-full">
