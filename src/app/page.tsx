@@ -45,15 +45,13 @@ export default function Home() {
 
     const formattedData = ObjectUtils.objectToFormData({
       nome: data.tituloEvento,
-      cargaHorariaEstimada: data.cargaHorariaEstimada,
+      cargaHorariaEstimada: Number(data.cargaHorariaEstimada),
       nomeInstituicao: data.nomeInstituicao,
-      inicioCurso: data.inicioCurso,
-      finalCurso: data.finalCurso,
-      dataExpedido: data.dataExpedido,
-      certificado: base64Clean,
-      diretoriaId: {
-        id: Number(data.diretoria),
-      },
+      inicioCurso: data.inicioCurso.toISOString().split("T")[0],
+      finalCurso: data.finalCurso.toISOString().split("T")[0],
+      dataExpedido: data.dataExpedido.toISOString().split("T")[0],
+      certificado: data.certificado,
+      diretoriaId: Number(data.diretoria),
       servidorId: 329,
       tipo: {
         id: Number(data.tipo),
@@ -65,8 +63,11 @@ export default function Home() {
         id: Number(data.areaConhecimento),
       },
     });
-    console.log("Dados formatados:", formattedData);
     console.log("Base64 PDF:", base64Clean.slice(0, 100));
+    for (const [key, value] of formattedData.entries()) {
+      console.log(`${key}:`, value);
+    }
+    console.log("Tamanho do base64:", base64Clean.length);
 
     try {
       await CapacitacaoServices.PostCapacitacao(formattedData);
