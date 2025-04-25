@@ -30,6 +30,19 @@ export default function Home() {
     const eventosArray =
       JSON.parse(localStorage.getItem("dadosForm") || "[]") ?? [];
 
+    const arquivo = data.certificado as File;
+    const base64WithPrefix = await toBase64(arquivo);
+    const base64Clean = base64WithPrefix.split(",")[1];
+
+    async function toBase64(file: File): Promise<string> {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = (error) => reject(error);
+      });
+    }
+
     const formattedData = ObjectUtils.objectToFormData({
       nome: data.tituloEvento,
       cargaHorariaEstimada: data.cargaHorariaEstimada,
@@ -37,7 +50,7 @@ export default function Home() {
       inicioCurso: data.inicioCurso,
       finalCurso: data.finalCurso,
       dataExpedido: data.dataExpedido,
-      certificado: data.certificado,
+      certificado: base64Clean,
       diretoriaId: {
         id: Number(data.diretoria),
       },
@@ -53,6 +66,7 @@ export default function Home() {
       },
     });
     console.log("Dados formatados:", formattedData);
+    console.log("Base64 PDF:", base64Clean.slice(0, 100));
 
     try {
       await CapacitacaoServices.PostCapacitacao(formattedData);
