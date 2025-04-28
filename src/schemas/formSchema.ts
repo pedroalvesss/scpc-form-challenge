@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+const isBrowser = typeof window !== "undefined";
+
 export const formSchema = z
   .object({
     diretoria: z
@@ -29,13 +31,15 @@ export const formSchema = z
     inicioCurso: z.date({ required_error: "Selecione uma data de início" }),
     finalCurso: z.date({ required_error: "Selecione uma data de fim" }),
     dataExpedido: z.date({ required_error: "Selecione a data de expedição" }),
-    certificado: z
-      .instanceof(File, {
-        message: "Você deve selecionar um arquivo",
-      })
-      .refine((file) => file.type === "application/pdf", {
-        message: "Apenas arquivos PDF são aceitos",
-      }),
+    certificado: isBrowser
+      ? z
+          .instanceof(File, {
+            message: "Você deve selecionar um arquivo",
+          })
+          .refine((file) => file.type === "application/pdf", {
+            message: "Apenas arquivos PDF são aceitos",
+          })
+      : z.any(),
   })
   .refine((data) => data.inicioCurso >= new Date("2024-12-25"), {
     path: ["inicioCurso"],

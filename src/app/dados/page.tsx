@@ -9,19 +9,29 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { CapacitacaoServices } from "@/services";
+import { Capacitacao } from "../interface/interface";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Dados() {
-  const [eventos, setEventos] = useState<any[]>([]);
+  const [dados, setDados] = useState<Capacitacao[]>([]);
 
   useEffect(() => {
-    const dadosSalvos = localStorage.getItem("dadosForm");
-    if (dadosSalvos) {
-      setEventos(JSON.parse(dadosSalvos));
-    }
+    const buscaDados = async () => {
+      try {
+        const response = await CapacitacaoServices.GetCapacitacao();
+        if (Array.isArray(response.content)) {
+          setDados(response.content);
+        } else {
+          console.error("Erro: Dados não são um array");
+        }
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+      }
+    };
+    buscaDados();
   }, []);
-
-  if (!eventos.length)
-    return <p className="text-center mt-10">Nenhum dado disponível.</p>;
 
   return (
     <div className="flex h-screen justify-center items-center px-4">
@@ -32,41 +42,47 @@ export default function Dados() {
             <TableRow>
               <TableHead>#</TableHead>
               <TableHead>Diretoria</TableHead>
-              <TableHead>Área do Conhecimento</TableHead>
-              <TableHead>Tipo</TableHead>
-              <TableHead>Modalidade</TableHead>
               <TableHead>Título</TableHead>
               <TableHead>Carga Horária</TableHead>
               <TableHead>Instituição</TableHead>
-              <TableHead>Início</TableHead>
-              <TableHead>Fim</TableHead>
-              <TableHead>Expedição</TableHead>
+              <TableHead>Data de Início</TableHead>
+              <TableHead>Data de Fim</TableHead>
+              <TableHead>Data de Expedição</TableHead>
+              <TableHead>Situação</TableHead>
               <TableHead>Certificado</TableHead>
             </TableRow>
           </TableHeader>
 
           <TableBody>
-            {eventos.map((evento, index) => (
-              <TableRow key={index}>
+            {dados.map((evento, index) => (
+              <TableRow key={evento.id || index}>
                 <TableCell>{index + 1}</TableCell>
-                <TableCell>{evento.diretoria || "—"}</TableCell>
-                <TableCell>{evento.areaConhecimento}</TableCell>
-                <TableCell>{evento.tipo}</TableCell>
-                <TableCell>{evento.modalidade}</TableCell>
-                <TableCell>{evento.tituloEvento}</TableCell>
+                <TableCell>
+                  {evento.diretoria.nome ? String(evento.diretoria.nome) : "—"}
+                </TableCell>
+                <TableCell>{evento.nome}</TableCell>
                 <TableCell>{evento.cargaHorariaEstimada}</TableCell>
                 <TableCell>{evento.nomeInstituicao}</TableCell>
                 <TableCell>
-                  {new Date(evento.inicioCurso).toLocaleDateString()}
+                  {evento.inicioCurso
+                    ? new Date(evento.inicioCurso).toLocaleDateString()
+                    : "—"}
                 </TableCell>
                 <TableCell>
-                  {new Date(evento.finalCurso).toLocaleDateString()}
+                  {evento.finalCurso
+                    ? new Date(evento.finalCurso).toLocaleDateString()
+                    : "—"}
                 </TableCell>
                 <TableCell>
-                  {new Date(evento.dataExpedido).toLocaleDateString()}
+                  {evento.dataExpedido
+                    ? new Date(evento.dataExpedido).toLocaleDateString()
+                    : "—"}
                 </TableCell>
+                <TableCell>{evento.situacao}</TableCell>
                 <TableCell>
-                  {evento.certificado?.name || "Não enviado"}
+                  <Link href={evento.resourceUrl} target="_blank">
+                    <Button className="cursor-pointer">PDF</Button>
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}

@@ -1,4 +1,4 @@
-import { SheetIcon } from "lucide-react";
+import { Menu } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -7,17 +7,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
-import { Button } from "../ui/button";
 import Link from "next/link";
 
 export default function SheetComponent() {
   return (
     <div className="flex flex-col gap-4">
       <Sheet>
-        <SheetTrigger>
-          <Button>
-            <SheetIcon className="" />
-          </Button>
+        <SheetTrigger className="bg-neutral-900 rounded-md p-2">
+          <Menu className="w-7 h-7 rounded-md text-white" />
         </SheetTrigger>
         <SheetContent
           side="left"
@@ -26,11 +23,9 @@ export default function SheetComponent() {
           <SheetHeader>
             DPE.png
             <SheetTitle>
-              <SheetDescription>
-                <div className="flex flex-col p-4>">
-                  <Link href="http://localhost:3000/">Formulário</Link>
-                  <Link href="/dados">Dados</Link>
-                </div>
+              <SheetDescription className="flex flex-col">
+                <Link href="http://localhost:3000/">Formulário</Link>
+                <Link href="/dados">Dados</Link>
               </SheetDescription>
             </SheetTitle>
           </SheetHeader>

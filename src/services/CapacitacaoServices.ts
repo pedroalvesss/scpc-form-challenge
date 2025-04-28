@@ -19,10 +19,6 @@ export const GetCapacitacao = async () => {
 };
 
 export const PostCapacitacao = async (payload: FormData) => {
-  console.log("Payload:", payload);
-  for (const [key, value] of payload.entries()) {
-    console.log(`${key}:`, value);
-  }
   const response = await fetch(
     "https://homol.services.defensoria.pa.def.br/api-folgas/v1/capacitacao",
     {

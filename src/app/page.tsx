@@ -27,22 +27,6 @@ export default function Home() {
   });
 
   const handleFormSubmit = async (data: FormData) => {
-    const eventosArray =
-      JSON.parse(localStorage.getItem("dadosForm") || "[]") ?? [];
-
-    const arquivo = data.certificado as File;
-    const base64WithPrefix = await toBase64(arquivo);
-    const base64Clean = base64WithPrefix.split(",")[1];
-
-    async function toBase64(file: File): Promise<string> {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result as string);
-        reader.onerror = (error) => reject(error);
-      });
-    }
-
     const formattedData = ObjectUtils.objectToFormData({
       nome: data.tituloEvento,
       cargaHorariaEstimada: Number(data.cargaHorariaEstimada),
@@ -63,11 +47,6 @@ export default function Home() {
         id: Number(data.areaConhecimento),
       },
     });
-    console.log("Base64 PDF:", base64Clean.slice(0, 100));
-    for (const [key, value] of formattedData.entries()) {
-      console.log(`${key}:`, value);
-    }
-    console.log("Tamanho do base64:", base64Clean.length);
 
     try {
       await CapacitacaoServices.PostCapacitacao(formattedData);
@@ -78,11 +57,8 @@ export default function Home() {
       return;
     }
 
-    eventosArray.push(formattedData);
-    localStorage.setItem("dadosForm", JSON.stringify(eventosArray));
-
     console.log("Dados enviados com sucesso!");
-    alert(JSON.stringify(formattedData));
+    alert("Formulário enviado com sucesso!");
   };
 
   return (
@@ -175,12 +151,15 @@ export default function Home() {
                 />
                 {form.formState.errors.certificado && (
                   <p className="text-red-500 text-sm mt-1">
-                    {form.formState.errors.certificado.message}
+                    {typeof form.formState.errors.certificado?.message ===
+                    "string"
+                      ? form.formState.errors.certificado.message
+                      : ""}
                   </p>
                 )}
               </div>
               <div className="flex w-150 justify-center items-center h-20">
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="cursor-pointer w-full">
                   Enviar
                 </Button>
               </div>

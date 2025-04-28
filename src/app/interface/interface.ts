@@ -7,6 +7,9 @@ export interface Capacitacao {
   finalCurso: Date;
   dataExpedido: Date;
   situacao: string;
+  servidor: Servidor;
+  diretoria: Diretoria;
+  resourceUrl: string;
 }
 
 export interface Servidor {
