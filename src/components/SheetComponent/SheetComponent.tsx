@@ -13,7 +13,7 @@ export default function SheetComponent() {
   return (
     <div className="flex flex-col gap-4">
       <Sheet>
-        <SheetTrigger className="bg-neutral-900 rounded-md p-2">
+        <SheetTrigger className="bg-neutral-900 rounded-md p-2 cursor-pointer">
           <Menu className="w-7 h-7 rounded-md text-white" />
         </SheetTrigger>
         <SheetContent
